@@ -153,7 +153,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-//    self.foldView = [PageView alloc] initWithFrame:<#(CGRect)#>
+    NSLog(@"%@",self.foldView);
 }
 
 - (void)didReceiveMemoryWarning {
