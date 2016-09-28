@@ -49,7 +49,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jSr-vK-rJh" customClass="FoldView">
-                                <frame key="frameInset" minX="67" minY="178" width="200" height="200"/>
+                                <frame key="frameInset" minX="68" minY="171" width="200" height="200"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="Fuv-JY-HIh"/>
@@ -63,6 +63,9 @@
                             <constraint firstItem="jSr-vK-rJh" firstAttribute="centerX" secondItem="Ozd-hx-cYT" secondAttribute="centerX" id="ziy-S8-lfl"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="foldView" destination="jSr-vK-rJh" id="m8B-On-Pcs"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MsL-wX-nes" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
