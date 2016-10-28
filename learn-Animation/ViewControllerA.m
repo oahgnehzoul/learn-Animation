@@ -16,13 +16,25 @@
 
 @implementation ViewControllerA
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    NSLog(@"awakeFromNib:%@",self.view);
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    NSLog(@"%@",self.foldView);
+    NSLog(@"viewDidLoad:%@",self.foldView);
 }
 
-
+//- (void)viewDidLayoutSubviews {
+//    NSLog(@"%@",self.view);
+//
+//    [super viewDidLayoutSubviews];
+//    [self.foldView layoutIfNeeded];
+//    NSLog(@"%@",self.view);
+//    NSLog(@"%@",self.foldView);
+//}
 
 
 @end

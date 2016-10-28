@@ -28,48 +28,61 @@ typedef NS_ENUM(NSInteger,NSImagePosition) {
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-
     [self addTopView];
     [self addBottomView];
-    [self addGesture];
+    BOOL is;
+    if (!is) {
+        [self addGesture];
+        is = YES;
+    }
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
 }
 
 - (void)addTopView {
-    self.topView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) / 2.f)];
-    self.topView.layer.anchorPoint = CGPointMake(0.5, 1.0);
-    self.topView.layer.position = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
-    CATransform3D transform3D = CATransform3DIdentity;
-    transform3D.m34 = -1 / 1000.f;
-    self.topView.layer.transform = transform3D;
-    self.topView.userInteractionEnabled = YES;
-    self.topView.contentMode = UIViewContentModeScaleAspectFill;
-    self.topView.image = [self getImageWithImage:[UIImage imageNamed:@"avatar.jpg"] Position:NSImagePositionTop];
-    
-    self.topShadowLayer = [CAGradientLayer layer];
-    self.topShadowLayer.frame = self.topView.bounds;
-    self.topShadowLayer.colors = @[(id)[UIColor clearColor].CGColor,(id)[UIColor blackColor].CGColor];
-    self.topShadowLayer.opacity = 0.f;
-    [self.topView.layer addSublayer:self.topShadowLayer];
-    [self addSubview:self.topView];
+    if (!_topView) {
+        _topView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) / 2.f)];
+        self.topView.layer.anchorPoint = CGPointMake(0.5, 1.0);
+        self.topView.layer.position = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
+        CATransform3D transform3D = CATransform3DIdentity;
+        transform3D.m34 = -1 / 1000.f;
+        self.topView.layer.transform = transform3D;
+        self.topView.userInteractionEnabled = YES;
+        self.topView.contentMode = UIViewContentModeScaleAspectFill;
+        self.topView.image = [self getImageWithImage:[UIImage imageNamed:@"avatar.jpg"] Position:NSImagePositionTop];
+        
+        self.topShadowLayer = [CAGradientLayer layer];
+        self.topShadowLayer.frame = self.topView.bounds;
+        self.topShadowLayer.colors = @[(id)[UIColor clearColor].CGColor,(id)[UIColor blackColor].CGColor];
+        self.topShadowLayer.opacity = 0.f;
+        [self.topView.layer addSublayer:self.topShadowLayer];
+        [self addSubview:_topView];
+
+    }
 }
 
 - (void)addBottomView {
-    self.bottomView = [[UIImageView alloc] initWithFrame:CGRectMake(0, CGRectGetMidY(self.bounds), CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) / 2.f)];
-    self.bottomView.layer.anchorPoint = CGPointMake(0.5, 0);
-    self.bottomView.layer.position = CGPointMake(CGRectGetMaxX(self.bounds) / 2.f, CGRectGetMidY(self.bounds));
-    CATransform3D transform3D = CATransform3DIdentity;
-    transform3D.m34 = -1 / 1000.f;
-    self.bottomView.layer.transform = transform3D;
-    self.bottomView.userInteractionEnabled = YES;
-    self.bottomView.contentMode = UIViewContentModeScaleAspectFill;
-    self.bottomView.image = [self getImageWithImage:[UIImage imageNamed:@"avatar.jpg"] Position:NSImagePositionBottom];
-    
-    self.bottomShadowLayer = [CAGradientLayer layer];
-    self.bottomShadowLayer.frame = self.bottomView.bounds;
-    self.bottomShadowLayer.colors = @[(id)[UIColor blackColor].CGColor,(id)[UIColor clearColor].CGColor];
-    self.bottomShadowLayer.opacity = 0.f;
-    [self.bottomView.layer addSublayer:self.bottomShadowLayer];
-    [self addSubview:self.bottomView];
+    if (!_bottomView) {
+        self.bottomView = [[UIImageView alloc] initWithFrame:CGRectMake(0, CGRectGetMidY(self.bounds), CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) / 2.f)];
+        self.bottomView.layer.anchorPoint = CGPointMake(0.5, 0);
+        self.bottomView.layer.position = CGPointMake(CGRectGetMaxX(self.bounds) / 2.f, CGRectGetMidY(self.bounds));
+        CATransform3D transform3D = CATransform3DIdentity;
+        transform3D.m34 = -1 / 1000.f;
+        self.bottomView.layer.transform = transform3D;
+        self.bottomView.userInteractionEnabled = YES;
+        self.bottomView.contentMode = UIViewContentModeScaleAspectFill;
+        self.bottomView.image = [self getImageWithImage:[UIImage imageNamed:@"avatar.jpg"] Position:NSImagePositionBottom];
+        
+        self.bottomShadowLayer = [CAGradientLayer layer];
+        self.bottomShadowLayer.frame = self.bottomView.bounds;
+        self.bottomShadowLayer.colors = @[(id)[UIColor blackColor].CGColor,(id)[UIColor clearColor].CGColor];
+        self.bottomShadowLayer.opacity = 0.f;
+        [self.bottomView.layer addSublayer:self.bottomShadowLayer];
+
+        [self addSubview:self.bottomView];
+    }
 }
 
 // 图片切割
@@ -86,7 +99,6 @@ typedef NS_ENUM(NSInteger,NSImagePosition) {
 
 - (void)addGesture {
     UIPanGestureRecognizer *topPan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panTop:)];
-    //    UITapGestureRecognizer *topPoke = [UITapGestureRecognizer alloc] initWithTarget:self action:@selector(<#selector#>)
     [self.topView addGestureRecognizer:topPan];
     UIPanGestureRecognizer *bottomPan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panBottom:)];
     [self.bottomView addGestureRecognizer:bottomPan];
